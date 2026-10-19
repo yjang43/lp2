@@ -1,0 +1,17 @@
+# Regularizer arm: none. The prediction target is detached instead, so the
+# stop-gradient is all that prevents collapse.
+defaults:
+  - lewm
+  - override /data: tworoom
+  - override /reg: null
+  - _self_
+
+output_model_name: tworooms/lewm_stopgrad
+
+# Learning rate of the encoder and projector; everything else stays at
+# optimizer.lr. This is the swept axis, since the arm has no regularizer
+# weight.
+encoder_lr: 5e-6
+
+trainer:
+  max_epochs: 10

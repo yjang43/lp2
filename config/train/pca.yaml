@@ -1,0 +1,31 @@
+# The PCA control: the basis is the covariance of the frozen encoder's
+# embeddings, so planning with cost=pca runs the same code as cost=lp2 and
+# the only difference is which directions are kept.
+defaults:
+  - _self_
+  - launcher: local
+  - data: tworoom
+
+pretrained_ckpt: tworooms/lewm/weights.pt
+output_model_name: tworooms/lewm/pca
+subdir: ${hydra:job.id}
+
+seed: 0
+train_split: 0.9
+img_size: 224
+num_workers: 6
+embed_dim: 192
+
+loader:
+  batch_size: 4096
+  num_workers: ${num_workers}
+  persistent_workers: True
+  prefetch_factor: 3
+  pin_memory: False
+
+# Only resolves the num_steps interpolation in data/*.yaml; the fit itself
+# reads single frames regardless.
+wm:
+  history_size: 1
+  num_preds: 0
+  frameskip: ${data.dataset.frameskip}

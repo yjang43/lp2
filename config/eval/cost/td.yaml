@@ -1,0 +1,5 @@
+# TD-JEPA (frozen): a learned directed distance blended with latent l2.
+# alpha=1 is the plain l2 cost.
+_target_: cost.TemporalDistance
+td_ckpt: ???
+alpha: 0.1

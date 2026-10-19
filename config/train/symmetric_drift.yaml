@@ -1,0 +1,9 @@
+# Ablation of normal_drift, motion removed: 1x1 lines only, A is symmetric.
+defaults:
+  - normal_drift
+  - _self_
+
+output_model_name: tworooms/lewm/symmetric_drift
+
+drift:
+  _target_: module.SymmetricDrift

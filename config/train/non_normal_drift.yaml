@@ -1,0 +1,9 @@
+# Ablation of normal_drift, normality removed: A = U diag(s) V^T.
+defaults:
+  - normal_drift
+  - _self_
+
+output_model_name: tworooms/lewm/non_normal_drift
+
+drift:
+  _target_: module.NonNormalDrift

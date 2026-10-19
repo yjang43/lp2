@@ -1,0 +1,52 @@
+defaults:
+  - launcher: local
+  - solver: cem
+  - cost: l2
+  - _self_
+
+world:
+  env_name: swm/PushT-v1
+  num_envs: ${eval.num_eval}
+  max_episode_steps: ??? # set in eval.py to 2 * eval_budget
+
+dataset:
+  stats: ${eval.dataset_name}
+  keys_to_cache:
+    - action
+    - proprio
+    - state
+
+seed: 42
+policy: random # ckpt name or random
+
+plan_config:
+  horizon: 5
+  receding_horizon: 5
+  action_block: 5 # frameskip
+
+# start states and goals are drawn from dataset episodes
+eval:
+  num_eval: 50
+  goal_offset_steps: 25
+  eval_budget: 50
+  img_size: 224
+  dataset_name: pusht_expert_train.h5
+  callables:
+    # -- set state
+    - method: _set_state
+      args:
+        state:
+          value: state
+    # -- set goal state
+    - method: _set_goal_state
+      args:
+        goal_state:
+          value: goal_state
+
+compile: false
+bf16: false
+
+output:
+  # null: beside the policy, in the checkpoint store
+  dir: null
+  filename: pusht_${hydra:runtime.choices.cost}_results.txt

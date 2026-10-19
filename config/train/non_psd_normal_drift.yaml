@@ -1,0 +1,9 @@
+# Ablation of normal_drift, PSD removed: the spectrum is not squashed into [0, 1).
+defaults:
+  - normal_drift
+  - _self_
+
+output_model_name: tworooms/lewm/non_psd_normal_drift
+
+drift:
+  _target_: module.NonPSDNormalDrift

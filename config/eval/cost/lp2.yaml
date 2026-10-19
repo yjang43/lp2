@@ -1,0 +1,3 @@
+_target_: cost.LP2GoalMSE
+drift_ckpt: ???
+k: ???

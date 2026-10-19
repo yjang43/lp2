@@ -1,0 +1,7 @@
+# Sliced-Wasserstein fit to N(0, I). Projection count matches SIGReg's; the
+# three term weights are the reference setting, not tuned.
+_target_: reg.VISReg
+num_proj: 1024
+scale_weight: 1.0
+shape_weight: 1.0
+center_weight: 1.0

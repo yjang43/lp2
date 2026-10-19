@@ -1,0 +1,14 @@
+# Regularizer arm: VISReg in place of SIGReg.
+defaults:
+  - lewm
+  - override /data: tworoom
+  - override /reg: visreg
+  - _self_
+
+output_model_name: tworooms/lewm_visreg
+
+trainer:
+  max_epochs: 10
+
+# Strength of the regularizer against pred_loss, which is fixed at 1.
+reg_weight: 6.0

@@ -1,0 +1,13 @@
+# @package _global_
+defaults:
+  - override /hydra/launcher: basic
+
+wandb:
+  enabled: false
+  config:
+    entity: null
+    project: lp2
+    name: ${output_model_name}
+    id: ${subdir}
+    resume: allow
+    log_model: False

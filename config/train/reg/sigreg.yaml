@@ -1,0 +1,4 @@
+# LeWM's own regularizer, from stable-worldmodel.
+_target_: stable_worldmodel.wm.loss.SIGReg
+knots: 17
+num_proj: 1024

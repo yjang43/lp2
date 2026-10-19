@@ -1,0 +1,7 @@
+# LpWM's rectified distribution matching: a sliced W2 to a rectified product
+# Laplace. Needs the RepReLU heads set in lewm_rdmreg.yaml.
+_target_: reg.RDMReg
+p: 1.0
+mu: 0.0
+link_function_type: ReLU
+num_slices: 1024

@@ -1,0 +1,48 @@
+defaults:
+  - launcher: local
+  - solver: cem
+  - cost: l2
+  - _self_
+
+world:
+  env_name: swm/PointMaze_UMaze-v3
+  num_envs: ${eval.num_eval}
+  max_episode_steps: ??? # set in eval.py to 2 * eval_budget
+
+dataset:
+  stats: ${eval.dataset_name}
+  keys_to_cache:
+    - action
+
+seed: 42
+policy: random # ckpt name or random
+
+plan_config:
+  horizon: 5
+  receding_horizon: 5
+  action_block: 5 # frameskip
+
+# start states and goals are drawn from dataset episodes
+eval:
+  num_eval: 50
+  goal_offset_steps: 25
+  eval_budget: 50
+  img_size: 224
+  dataset_name: d4rl_pointmaze_u_maze_expert.h5
+  callables:
+    - method: set_state
+      args:
+        state:
+          value: proprio
+        desired_goal:
+          value: goal_desired_goal
+    # success: ||goal_xy - agent_xy|| < 0.5
+    - method: set_goal
+      args:
+        goal:
+          value: goal_proprio
+
+output:
+  # null: beside the policy, in the checkpoint store
+  dir: null
+  filename: pointmaze_${hydra:runtime.choices.cost}_results.txt

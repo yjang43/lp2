@@ -1,0 +1,10 @@
+# Ablation of normal_drift, multi-step removed: fit the 1-step transition only.
+defaults:
+  - normal_drift
+  - _self_
+
+output_model_name: tworooms/lewm/single_step_normal_drift
+
+drift:
+  _target_: module.NormalDrift
+  h: 1

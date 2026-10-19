@@ -1,0 +1,24 @@
+# the project root is STABLEWM_HOME: downloaded datasets and world models
+# land here, the fitted heads under checkpoints/<task>/<wm>/ are in git.
+/datasets/
+/checkpoints/*/*/weights*.pt
+/checkpoints/*/*/config.json
+.stable_worldmodel/
+outputs/
+runs/
+lightning_logs/
+wandb/
+environment.json
+requirements_frozen.txt
+
+# scratch
+tmp/
+result/
+archive/
+doc/
+
+# python
+__pycache__/
+*.py[cod]
+.venv/
+*.egg-info/

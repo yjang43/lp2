@@ -1,0 +1,46 @@
+defaults:
+  - _self_
+  - launcher: local
+  - data: tworoom
+
+# frozen pretrained world model; only the drift is trained
+pretrained_ckpt: tworooms/lewm/weights.pt
+output_model_name: tworooms/lewm/normal_drift
+subdir: ${hydra:job.id}
+
+seed: 0
+train_split: 0.9
+img_size: 224
+num_workers: 6
+
+trainer:
+  max_epochs: 50
+  devices: auto
+  accelerator: gpu
+  precision: bf16
+  gradient_clip_val: 1.0
+
+loader:
+  batch_size: 1024
+  num_workers: ${num_workers}
+  drop_last: True
+  persistent_workers: True
+  prefetch_factor: 3
+  pin_memory: True
+  shuffle: True
+
+optimizer:
+  type: AdamW
+  lr: 1e-3
+  weight_decay: 0.0
+
+wm:
+  # one anchor frame predicts lags 1..num_preds; one lag = one strided step
+  history_size: 1
+  num_preds: 4
+  frameskip: ${data.dataset.frameskip}
+
+drift:
+  _target_: module.NormalDrift
+  dim: 192
+  h: ${wm.num_preds}

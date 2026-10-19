@@ -1,0 +1,51 @@
+# TD-JEPA's quasimetric head, fit on a frozen world model. The baseline that
+# replaces the l2 planning cost with a learned directed distance.
+defaults:
+  - _self_
+  - launcher: local
+  - data: tworoom
+
+pretrained_ckpt: tworooms/lewm/weights.pt
+output_model_name: tworooms/lewm/td
+subdir: ${hydra:job.id}
+
+seed: 0
+train_split: 0.9
+img_size: 224
+num_workers: 6
+embed_dim: 192
+
+trainer:
+  max_epochs: 10
+  devices: auto
+  accelerator: gpu
+  precision: bf16
+  gradient_clip_val: 1.0
+
+loader:
+  batch_size: 128
+  num_workers: ${num_workers}
+  drop_last: True
+  persistent_workers: True
+  prefetch_factor: 3
+  pin_memory: True
+  shuffle: True
+
+# TD-JEPA's own optimizer settings.
+optimizer:
+  type: AdamW
+  lr: 5e-5
+  weight_decay: 1e-3
+
+# An 8-frame window; the hinge margin below is window - 1.
+wm:
+  history_size: 3
+  num_preds: 5
+  frameskip: ${data.dataset.frameskip}
+
+td:
+  _target_: module.QuasimetricHead
+  input_dim: ${embed_dim}
+  hidden_dim: 512
+  sym_dim: 128
+  asym_dim: 128

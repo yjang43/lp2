@@ -1,0 +1,40 @@
+# Regularizer arm: RDMReg in place of SIGReg, with a RepReLU link on both
+# MLP heads so the code is non-negative and sparse.
+defaults:
+  - lewm
+  - override /data: tworoom
+  - override /reg: rdmreg
+  - _self_
+
+output_model_name: tworooms/lewm_rdmreg_w${reg_weight}
+
+trainer:
+  max_epochs: 10
+
+model:
+  # LeWM's two heads, each followed by the RepReLU link.
+  projector:
+    _target_: torch.nn.Sequential
+    _args_:
+      - _target_: stable_worldmodel.wm.lewm.module.MLP
+        input_dim: ${embed_dim}
+        output_dim: ${embed_dim}
+        hidden_dim: 2048
+        norm_fn:
+          _target_: torch.nn.BatchNorm1d
+          _partial_: true
+      - _target_: reg.RepReLU
+  pred_proj:
+    _target_: torch.nn.Sequential
+    _args_:
+      - _target_: stable_worldmodel.wm.lewm.module.MLP
+        input_dim: ${embed_dim}
+        output_dim: ${embed_dim}
+        hidden_dim: 2048
+        norm_fn:
+          _target_: torch.nn.BatchNorm1d
+          _partial_: true
+      - _target_: reg.RepReLU
+
+# Strength of the regularizer against pred_loss, which is fixed at 1.
+reg_weight: 10.0

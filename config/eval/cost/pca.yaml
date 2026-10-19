@@ -1,0 +1,5 @@
+# Same cost as lp2, pointed at a PCA basis instead of a drift. Separate so
+# the arm is named in the run's output filename.
+_target_: cost.LP2GoalMSE
+drift_ckpt: ???
+k: ???

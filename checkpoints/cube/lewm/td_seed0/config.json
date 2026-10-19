@@ -1,0 +1,7 @@
+{
+  "_target_": "module.QuasimetricHead",
+  "input_dim": 192,
+  "hidden_dim": 512,
+  "sym_dim": 128,
+  "asym_dim": 128
+}

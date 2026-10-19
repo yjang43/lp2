@@ -1,0 +1,4 @@
+_target_: cost.RandomGoalMSE
+dim: 192
+k: ???
+seed: 0

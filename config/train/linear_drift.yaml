@@ -1,0 +1,9 @@
+# Ablation of normal_drift, no structure: A is a free matrix.
+defaults:
+  - normal_drift
+  - _self_
+
+output_model_name: tworooms/lewm/linear_drift
+
+drift:
+  _target_: module.LinearDrift
