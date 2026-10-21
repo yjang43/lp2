@@ -5,6 +5,7 @@
 </p>
 
 <p align="center">
+  <a href="https://arxiv.org/abs/2610.26979"><img alt="arXiv" src="https://img.shields.io/badge/arXiv-2610.26979-b31b1b.svg"></a>
   <img alt="License" src="https://img.shields.io/badge/license-MIT-green.svg">
 </p>
 
@@ -159,6 +160,20 @@ The ablation arms are the same command with `--config-name` set to `non_normal_d
 `non_psd_normal_drift`, `linear_drift`, `symmetric_drift` or `single_step_normal_drift`.
 
 ---
+
+## Citation
+
+```bibtex
+@misc{jang2026latentprojectionlatentplanning,
+      title={Latent Projection for Latent Planning},
+      author={Yoo Sung Jang and Michael Ryoo},
+      year={2026},
+      eprint={2610.26979},
+      archivePrefix={arXiv},
+      primaryClass={cs.LG},
+      url={https://arxiv.org/abs/2610.26979},
+}
+```
 
 ## License
 
